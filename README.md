@@ -1,5 +1,9 @@
 # RsyncGUI
 
+<p align="center">
+  <img src="logo.png" width="160" alt="RsyncGUI logo">
+</p>
+
 Interfaz gráfica para `rsync` hecha en Python + Tkinter. Permite copiar carpetas entre directorios locales o hacia/desde un NAS Synology vía SSH, con barra de progreso en tiempo real y tema oscuro nativo.
 
 ![Python](https://img.shields.io/badge/python-3.8%2B-blue)
