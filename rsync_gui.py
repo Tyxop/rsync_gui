@@ -386,6 +386,7 @@ class RsyncGUI(tk.Tk):
 
         self._build_ui()
         self._load_config()   # restaurar última sesión
+        self._set_macos_icon()
 
     # ── Persistencia ────────────────────────────────────────────────────────
 
@@ -981,6 +982,36 @@ class RsyncGUI(tk.Tk):
     def _set_status(self, msg, color=MUTED):
         self._status_var.set(msg)
         self._status_lbl.configure(fg=color)
+
+    # ── Icono de Dock (macOS) ────────────────────────────────────────────────
+
+    def _set_macos_icon(self):
+        """
+        Establece el icono de la app en el Dock de macOS.
+
+        Tkinter no expone esta funcionalidad; hay que ir directamente
+        a AppKit (pyobjc-framework-Cocoa).  Si pyobjc no está instalado
+        se ignora silenciosamente — la app sigue funcionando con normalidad.
+
+        Instalación: pip install pyobjc-framework-Cocoa
+        """
+        here = Path(__file__).parent
+        # Preferimos .icns (resolución múltiple); fallback a .png
+        for name in ("logo.icns", "logo.png"):
+            icon_path = here / name
+            if icon_path.exists():
+                break
+        else:
+            return  # sin icono disponible
+
+        try:
+            from AppKit import NSApplication, NSImage  # type: ignore
+            ns_app   = NSApplication.sharedApplication()
+            ns_image = NSImage.alloc().initWithContentsOfFile_(str(icon_path))
+            if ns_image:
+                ns_app.setApplicationIconImage_(ns_image)
+        except Exception:
+            pass  # pyobjc no instalado o error puntual → continuar sin icono
 
 
 if __name__ == "__main__":

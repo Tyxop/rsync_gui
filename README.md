@@ -56,6 +56,12 @@ Ventana modal que conecta al NAS por SSH y permite navegar el árbol de director
 brew install rsync
 ```
 
+> **Icono en el Dock (opcional):** para que aparezca el logo de la app instala PyObjC:
+> ```bash
+> pip install pyobjc-framework-Cocoa
+> ```
+> Sin este paquete la app funciona con normalidad pero muestra el icono genérico de Python.
+
 > **Modo NAS con contraseña (opcional):** necesita `sshpass`.
 > ```bash
 > brew install hudochenkov/sshpass/sshpass
